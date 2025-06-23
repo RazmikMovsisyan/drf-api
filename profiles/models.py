@@ -10,7 +10,7 @@ class Profile(models.Model):
     name = models.CharField(max_length=255, blank=True)
     content = models.TextField(blank=True)
     image = models.ImageField(
-        upload_to='images/', default='../default_profile_rxsxdv'
+        upload_to='images/', default='../default_profile_rxsxdv.jpg'
     )
 
     class Meta:
@@ -24,4 +24,4 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(owner=instance)
 
-post_save.connect(create_profile, sender=User)
+post_save.connect(create_profile, sender=User) 
