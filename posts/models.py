@@ -28,10 +28,9 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255)
     content = models.TextField(blank=True)
-    image = models.URLField(
-    max_length=500,
-    default='https%3A/res.cloudinary.com/dj5p9ubcu/image/upload/v1750632467/default_post_ltnkan',
-)
+    image = models.ImageField(
+        upload_to='images/', default='../default_post_ltnkan', blank=True
+    )
     image_filter = models.CharField(
         max_length=32, choices=image_filter_choices, default='normal'
     )
