@@ -55,7 +55,6 @@ pyee==13.0.0
 pygame==2.6.1
 PyGetWindow==0.0.9
 PyJWT==2.9.0
-pyobjc==11.0
 pyobjc-core==11.0
 pyobjc-framework-Accessibility==11.0
 pyobjc-framework-Accounts==11.0
