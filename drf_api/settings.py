@@ -14,21 +14,31 @@ from pathlib import Path
 import os
 import dj_database_url
 from corsheaders.defaults import default_headers
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+
+cloudinary.config(
+    cloud_name=os.getenv('CLOUD_NAME'),
+    api_key=os.getenv('API_KEY'),
+    api_secret=os.getenv('API_SECRET')
+)
 
 if os.path.exists('env.py'):
     import env
 
-CLOUDINARY_STORAGE = {
-'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
- 'API_KEY': os.environ.get('API_KEY'),
- 'API_SECRET': os.environ.get('API_SECRET'),
-}
+# CLOUDINARY_STORAGE = {
+# 'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+#  'API_KEY': os.environ.get('API_KEY'),
+#  'API_SECRET': os.environ.get('API_SECRET'),
+# }
 
 CLOUDINARY_URL = f"cloudinary://{os.environ['API_KEY']}:{os.environ['API_SECRET']}@{os.environ['CLOUD_NAME']}"
 os.environ["CLOUDINARY_URL"] = CLOUDINARY_URL
 
-MEDIA_URL = '/media/'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+MEDIA_URL = 'https://res.cloudinary.com/dj5p9ubcu/'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -96,7 +106,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
+    # 'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
     'rest_framework',
@@ -130,11 +140,12 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-   origin for origin in [ 
-     os.environ.get('CLIENT_ORIGIN'),
-     os.environ.get('CLIENT_ORIGIN_DEV')
-   ] if origin
- ]
+    "https://locust-usable-newly.ngrok-free.app",
+    "https://loopinapp-d364a1b22906.herokuapp.com",
+    'http://localhost:3000',
+    'https://loopin-8006788e0f02.herokuapp.com',
+]
+
 
 CORS_ALLOW_CREDENTIALS = True
 
