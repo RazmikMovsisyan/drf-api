@@ -23,7 +23,9 @@ CLOUDINARY_STORAGE = {
 }
 
 MEDIA_URL = '/media/'
+
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -71,9 +73,11 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = [
-    os.environ.get('ALLOWED_HOST'),
     'localhost',
-    '127.0.0.1'
+    '127.0.0.1',
+    "loopin-8006788e0f02.herokuapp.com", 
+    "loopinapp-d364a1b22906.herokuapp.com",
+    "locust-usable-newly.ngrok-free.app"
 ]
 
 # Application definition
