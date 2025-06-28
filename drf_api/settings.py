@@ -54,10 +54,10 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    origin for origin in [
-        config("CLIENT_ORIGIN", default=None),
-        config("CLIENT_ORIGIN_DEV", default=None)
-    ] if origin
+    "https://loopinapp-d364a1b22906.herokuapp.com",
+    "https://loopin-8006788e0f02.herokuapp.com",
+    "http://localhost:3000",
+    "https://locust-usable-newly.ngrok-free.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -139,6 +139,8 @@ JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
+CSRF_COOKIE_HTTPONLY = False
+
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'drf_api.serializers.CurrentUserSerializer'
