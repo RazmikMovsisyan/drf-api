@@ -9,7 +9,6 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEV", default=False, cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost").split(",")
 
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -54,6 +53,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://loopinapp-d364a1b22906.herokuapp.com",
     "https://loopin-8006788e0f02.herokuapp.com",
     "http://localhost:3000",
+    "http://localhost:8000",
     "https://locust-usable-newly.ngrok-free.app",
 ]
 CORS_ALLOW_CREDENTIALS = True
@@ -96,12 +96,12 @@ USE_L10N = True
 USE_TZ = True
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
@@ -109,6 +109,7 @@ CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': f"cloudinary://{config('API_KEY')}:{config('API_SECRET')}@{config('CLOUD_NAME')}"
 }
 
+# 🔒 REST + JWT
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
@@ -124,11 +125,13 @@ JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
 JWT_AUTH_SECURE = True
 
-CSRF_COOKIE_HTTPONLY = False
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_NAME = "csrftoken"
+CSRF_COOKIE_HTTPONLY = False  
+CSRF_COOKIE_SECURE = True     
+CSRF_COOKIE_SAMESITE = "None" 
+
 SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = "None"
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'drf_api.serializers.CurrentUserSerializer'
