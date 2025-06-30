@@ -106,7 +106,8 @@ MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
-    'CLOUDINARY_URL': f"cloudinary://{config('API_KEY')}:{config('API_SECRET')}@{config('CLOUD_NAME')}"
+    'CLOUDINARY_URL': f"cloudinary://{config('API_KEY')}:{config('API_SECRET')}@{config('CLOUD_NAME')}",
+    'SECURE': True,
 }
 
 # 🔒 REST + JWT
