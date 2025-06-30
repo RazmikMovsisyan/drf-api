@@ -1,18 +1,19 @@
 # Loopin
-![Loopin Logo](docs/images/Loopin.png)  
+[Click here to go to live Project](https://loopin-8006788e0f02.herokuapp.com/)
+
+![alt text](assets/images/API.png)
+
 Loopin is a social networking platform designed for authenticated users to share images and content with others. Members can post, like, and comment on content, as well as edit or delete their own posts. They can also follow other users to create a personalized feed of posts.
 
-[Click here to go to live Project](#)
 
-![Website Mockup](docs/images/website-mockup.png)
+[Frontend Github](https://github.com/RazmikMovsisyan/loopin)
 
-# Objective
+[Frontend Heroku](https://loopinapp-d364a1b22906.herokuapp.com/)
+
+### Objective
 The goal of this project is to showcase my expertise in React, Typescript, Django Rest Framework, and Python. Additionally, I aim to demonstrate my skills in Object-Oriented Programming and core programming concepts such as flow control, iteration, conditionals, functions, and data structures.
 
-# React Frontend
-The frontend repository for this application can be found here: [https://github.com/RazmikMovsisyan/loopin](https://github.com/RazmikMovsisyan/loopin)
-
-# Contents
+## Table of Contents
 * [Endpoints](#endpoints)
   * [Authentication](#authentication)
     * [Registration](#registration)
@@ -45,70 +46,70 @@ The frontend repository for this application can be found here: [https://github.
   * [Django Apps](#django-apps)
   * [Content and Media](#content-and-media)
 
-# Endpoints
+## Endpoints
 
 ## Authentication
 
-#### [Registration](https://Loopin-api..#/dj-rest-auth/registration/)
+#### Registration
 - **POST:** Creates a new user
 
-#### [API Tokens](https://Loopin-api..#/api/token/)
+#### API Tokens
 - **POST:** Returns a set of JWT tokens
 
-#### [API Token Refresh](https://Loopin-api..#/api/token/refresh/)
+#### API Token Refresh
 - **POST:** Allows authenticated users to refresh their access token by providing a refresh token
 
 ## Profiles
 
-#### [Profile List](https://Loopin-api..#/profiles)
+#### Profile List
 - **GET:** Returns a list of all profiles
 
-#### [Profile Detail](https://Loopin-api..#/profiles/8)
+#### Profile Detail
 - **GET:** Returns the profile specified by ID
 
-#### [Profile Follow](https://Loopin-api..#/profiles/8/followers)
+#### Profile Follow
 - **GET:** Lists profiles following the specified profile  
 - **POST:** Allows authenticated users to follow the specified profile
 
-#### [User Profile](https://Loopin-api..#/profiles/user)
+#### User Profile
 - **GET:** Returns the profile of the authenticated user  
 - **PUT:** Allows users to update their profile
 
 ## Posts
 
-#### [Post List](https://Loopin-api..#/posts)
+#### Post List
 - **GET:** Returns a list of all posts  
   - Authenticated: Filters out posts from the requesting user and the profiles they follow  
 - **POST:** Allows authenticated users to create posts
 
-#### [Post Detail](https://Loopin-api..#/posts/12)
+#### Post Detail
 - **GET:** Returns the post specified by ID  
 - **PUT:** Allows the post owner to update the post  
 - **DELETE:** Allows the post owner to delete the post
 
-#### [Post Like](https://Loopin-api..#/posts/12/likes)
+#### Post Like
 - **GET:** Returns a list of profiles who liked the specified post  
 - **POST:** Allows authenticated users to like the specified post
 
-#### [Post Search](https://Loopin-api..#/posts/search?keywords=dog)
+#### Post Search
 - **GET:** Returns posts containing the specified keywords in their title, description, or author's profile name
 
-#### [Profile Post List](https://Loopin-api..#/profiles/8/posts)
+#### Profile Post List
 - **GET:** Returns all posts from the specified profile
 
-#### [Follow Post List](https://Loopin-api..#/posts/feed)
+#### Follow Post List
 - **GET:** Allows authenticated users to retrieve a list of posts from profiles they follow
 
-#### [Liked Post List](https://Loopin-api..#/posts/liked)
+#### Liked Post List
 - **GET:** Allows authenticated users to retrieve a list of posts they liked
 
 ## Comments
 
-#### [Comment List](https://Loopin-api..#/posts/18/comments)
+#### Comment List
 - **GET:** Returns all comments from a specified post  
 - **POST:** Allows authenticated users to create comments on the specified post
 
-#### [Comment Detail](https://Loopin-api..#/posts/18/comments/20)
+#### Comment Detail
 - **GET:** Returns the comment specified by ID  
 - **PUT:** Allows the comment owner to update the comment  
 - **DELETE:** Allows the comment owner to delete the comment
@@ -135,23 +136,39 @@ The frontend repository for this application can be found here: [https://github.
 
 ## Bugs
 **Application Error in Production for Unauthorized Unsafe Methods**  
-Unauthorized requests using unsafe methods are causing errors in the live application. On local deployments, these requests return a 403 error as expected. The issue might be related to the remote PostgreSQL database but hasn't been addressed due to time constraints.
+Unauthorized requests using unsafe methods are causing errors in the live application. On local deployments, these requests return a 401 error. The issue might be related to the remote PostgreSQL database but hasn't been addressed due to time constraints. This happened after reaching out to tutor support.
+
+Two days before the submission deadline of my PP5, I received a message from two Code Institute staff members informing me about a required password change for my Neon database.
+
+After updating the database URL, the application’s functions and data fell into disarray.
+
+Unfortunately, the same issue also affected my PP4 project, which is or was still under assessment at the time. As a result, I suddenly had to manage and fix problems in both projects at once.
+
+For PP4, I lost all content because no backup had been created. I did not receive any support in this situation and got rejected by tutor support for two reasons and had to manually recreate all content, user accounts, and superusers on my own.
+
+I immediately reached out to another tutor Support again to resolve the issue.
+
+However, one of the tutors caused further issues in my PP5 project, disrupting basic functionalites. Instead of solving the existing issues, additional complications were introduced, and unfortunately I did not receive further assistance.
+
+Ultimately, I was able to bring my project to a functional level with all core logic in place, to avoid the risk of failing the assessment.
+
+I am willing to provide more details regarding this matter if needed to keep everything transparent.
 
 ### Git
 - I regularly used `git add <filename>` to stage my changes, followed by `git commit -m 'short descriptive message here'` to commit them to the local repository.
 - To push my changes, I used `git push` which triggered an automatic deployment to Heroku from the 'main' branch.
 
-# Deployment
+## Deployment
 
 The website was deployed on Heroku.
 
-## Deployment Preparation
+### Deployment Preparation
 Before deploying, the following preparations were made:
 - The `DEBUG` setting in `settings.py` was set to `False`.
 - All dependencies were recorded in the `requirements.txt` file by running `pip3 freeze --local > requirements.txt`.
 - The start command `web: gunicorn Loopin-api.wsgi` was added to the `Procfile`.
 
-## Setup
+### Setup
 To deploy the app on Heroku, follow these steps:
 - Create a new app from the Heroku dashboard.
 - Choose an app name and select a region, then click "Create App".
@@ -164,15 +181,16 @@ The live link can be found here: [Loopin API](#)
 
 # Credits
 
-## Used Technologies and Tools
+### Used Technologies and Tools
 - [Django Rest Framework](https://www.django-rest-framework.org/) - Framework used for the project
 - [Heroku](https://www.heroku.com/) - Platform for deployment
 - [Cloudinary](https://cloudinary.com/) - Service for image storage
 
-## Django Apps
+### Django Apps
 - [dj_rest_auth](https://pypi.org/project/dj-rest-auth/) - Used for handling user registration
 - [django-allauth](https://pypi.org/project/django-allauth/) - Used for handling user authentication
 - [django-cors-headers](https://pypi.org/project/django-cors-headers/) - Used to add CORS headers to responses
 - [rest-framework-simplejwt](https://pypi.org/project/rest-framework-simplejwt/) - Used for JWT-based authentication
 - [cloudinary_storage and cloudinary](https://pypi.org/project/django-cloudinary-storage/) - Used for storing images
 ---
+[⬆ Back to Top](#loopin)
