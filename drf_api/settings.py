@@ -56,7 +56,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:8000",
     "https://locust-usable-newly.ngrok-free.app",
-    # "loopin-8006788e0f02.herokuapp.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
