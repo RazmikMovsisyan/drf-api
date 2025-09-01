@@ -6,7 +6,8 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY")
-DEBUG = config("DEV", default=False, cast=bool)
+# DEBUG = config("DEV", default=False, cast=bool)
+DEBUG = True
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost").split(",")
 
 INSTALLED_APPS = [
@@ -55,7 +56,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:8000",
     "https://locust-usable-newly.ngrok-free.app",
-    "loopin-8006788e0f02.herokuapp.com",
+    # "loopin-8006788e0f02.herokuapp.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
