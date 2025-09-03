@@ -1,2 +1,7 @@
 drf-api/.env
 .env
+comments/__pycache__/serializers.cpython-313.pyc
+posts/__pycache__/models.cpython-313.pyc
+posts/__pycache__/serializers.cpython-313.pyc
+profiles/__pycache__/models.cpython-313.pyc
+profiles/__pycache__/serializers.cpython-313.pyc
