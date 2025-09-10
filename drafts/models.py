@@ -5,9 +5,9 @@ from posts.models import Post
 
 class Draft(models.Model):
     DRAFT_STATUS = [
-        ('draft', 'Entwurf'),
-        ('scheduled', 'Geplant'),
-        ('published', 'Veröffentlicht'),
+        ('draft', 'Draft'),
+        ('scheduled', 'Scheduled'),
+        ('published', 'Published'),
     ]
     
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='drafts')
@@ -23,7 +23,6 @@ class Draft(models.Model):
     scheduled_time = models.DateTimeField(blank=True, null=True)
     published_at = models.DateTimeField(blank=True, null=True)
     
-    # Verweis auf den originalen Post, falls der Draft veröffentlicht wurde
     published_post = models.OneToOneField(
         Post, 
         on_delete=models.SET_NULL, 
@@ -39,7 +38,10 @@ class Draft(models.Model):
         return f"Draft by {self.author.username} - {self.status}"
     
     def publish(self):
-        """Veröffentlicht den Draft als neuen Post"""
+        """Publish the draft as a new post"""
+        from posts.models import Post
+        
+        # Create a new post with the draft data
         post = Post.objects.create(
             author=self.author,
             content=self.content,
@@ -47,6 +49,7 @@ class Draft(models.Model):
             created_at=timezone.now()
         )
         
+        # Update draft status
         self.status = 'published'
         self.published_post = post
         self.published_at = timezone.now()
@@ -55,7 +58,7 @@ class Draft(models.Model):
         return post
     
     def schedule(self, schedule_time):
-        """Plant den Draft für spätere Veröffentlichung"""
+        """Schedule the draft for later publication"""
         self.status = 'scheduled'
         self.scheduled_time = schedule_time
         self.save()
