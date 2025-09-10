@@ -41,9 +41,11 @@ class Draft(models.Model):
         """Publish the draft as a new post"""
         from posts.models import Post
         
-        # Create a new post with the draft data
+        title = self.content[:50] + "..." if len(self.content) > 50 else self.content
+        
         post = Post.objects.create(
             author=self.author,
+            title=title,
             content=self.content,
             image=self.image,
             created_at=timezone.now()
