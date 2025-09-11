@@ -150,7 +150,7 @@ Fix: This was fixed by correcting the flawed routing logic. The code was updated
 ### **Heroku**
 
 Deployed via **Heroku**.
-The live link can be found here: [Loopin API](#)
+The live link can be found here: [Loopin API](https://loopin-8006788e0f02.herokuapp.com/)
 
 
 Steps:
@@ -226,7 +226,7 @@ To deploy your app manually via the Heroku Dashboard:
 - In the top menu, click on **“Deploy.”**
 ![Deploy1](assets/images/deploy-branch.png)
 - Scroll down to the Manual Deploy section and click on **Deploy Branch**
-![Deploy2](assets/documentation/deploy2.png)
+![Deploy2](assets/images/heroku_settings_var.png)
 
 - After a successful deployment, click the **“View”** button to open your live app.
 ![Deploy3](assets/images/deployed.png)
