@@ -9,7 +9,7 @@ class DraftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Draft
         fields = [
-            'id', 'author', 'content', 'image', 
+            'id', 'author', 'title', 'content', 'image',
             'created_at', 'updated_at', 'status',
             'scheduled_time', 'published_at', 'published_post', 'is_owner'
         ]

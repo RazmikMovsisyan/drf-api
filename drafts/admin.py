@@ -3,6 +3,6 @@ from .models import Draft
 
 @admin.register(Draft)
 class DraftAdmin(admin.ModelAdmin):
-    list_display = ['author', 'status', 'created_at', 'updated_at']
+    list_display = ['author', 'title', 'status', 'created_at', 'updated_at']
     list_filter = ['status', 'created_at']
-    search_fields = ['author__username', 'content']
+    search_fields = ['author__username', 'title', 'content']

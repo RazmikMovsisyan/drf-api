@@ -11,6 +11,7 @@ class Draft(models.Model):
     ]
     
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='drafts')
+    title = models.CharField(max_length=255, blank=True)
     content = models.TextField(max_length=1000, blank=True)
     image = models.ImageField(
         upload_to='drafts/%Y/%m/%d/', 
@@ -41,17 +42,18 @@ class Draft(models.Model):
         """Publish the draft as a new post"""
         from posts.models import Post
         
-        title = self.content[:50] + "..." if len(self.content) > 50 else self.content
+        post_title = self.title
+        if not post_title:
+            post_title = self.content[:50] + "..." if len(self.content) > 50 else self.content
         
         post = Post.objects.create(
             author=self.author,
-            title=title,
+            title=post_title,
             content=self.content,
             image=self.image,
             created_at=timezone.now()
         )
         
-        # Update draft status
         self.status = 'published'
         self.published_post = post
         self.published_at = timezone.now()
