@@ -37,7 +37,7 @@ The goal of this project is to showcase my expertise in React, Typescript, Djang
     * [Comment Detail](#comment-detail)
  * [Manual Testing](#manual-testing)
  * [Bugs](#bugs)
-* [Git](#git)
+* [Github](#github)
 * [Deployment](#deployment)
   * [Deployment](#deployment)
   * [heroku](#heroku)
@@ -117,22 +117,67 @@ The goal of this project is to showcase my expertise in React, Typescript, Djang
 ### Manual Testing
 - I thoroughly tested each page and feature manually during the development process.  
 
-| Testcase                                                                     | Expected Result                                                                                             | Test Result |
-| ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------- |
-| **Profiles**                                                                 |                                                                                                             |             |
-| Profile List                                                                 | Returns 200 response: a list of all the profiles                                                            | ✅          |
-| Profile Detail                                                                | Returns 200 response: the profile specified by ID                                                           | ✅          |
-| Profile Follow                                                                | Returns 403 Forbidden (Unauthenticated) / 200 response (Authenticated)                                      | ✅          |
-| User Profile                                                                 | Returns the profile of the requesting user (Authenticated) / 403 error (Unauthenticated)                    | ✅          |
-| **Posts**                                                                    |                                                                                                             |             |
-| Post List                                                                    | Returns 200 response: a list of all posts                                                                   | ✅          |
-| Post Detail                                                                  | Returns the post specified by ID                                                                            | ✅          |
-| Post Like                                                                   | Allows authenticated users to like the specified post (201 response)                                        | ✅          |
-| Post Search                                                                 | Returns a list of posts containing the specified keywords                                                   | ✅          |
-| **Comments**                                                                 |                                                                                                             |             |
-| Comment List                                                                 | Returns all comments from a specified post                                                                  | ✅          |
-| Comment Detail                                                               | Returns the comment specified by ID                                                                         | ✅          |
-| POST Comment                                                                  | Allows authenticated users to create comments (201 response)                                                | ✅          |
+## API Manual Testing
+
+## Overview
+Comprehensive manual testing was performed on all API endpoints to ensure proper functionality across authentication, profiles, posts, and comments features.
+
+## Test Results
+
+### Authentication Endpoints
+
+| Feature | Method | Endpoint | Expected Result | Test Result |
+|---------|--------|----------|-----------------|-------------|
+| User Registration | POST | `/api/auth/registration/` | Creates new user account | ✅ |
+| Token Generation | POST | `/api/auth/token/` | Returns JWT tokens | ✅ |
+| Token Refresh | POST | `/api/auth/token/refresh/` | Refreshes access token | ✅ |
+
+### Profile Endpoints
+
+| Feature | Method | Endpoint | Expected Result | Test Result |
+|---------|--------|----------|-----------------|-------------|
+| Profile List | GET | `/api/profiles/` | Returns all profiles | ✅ |
+| Profile Detail | GET | `/api/profiles/{id}/` | Returns specific profile | ✅ |
+| Profile Followers | GET | `/api/profiles/{id}/follow/` | Returns profile followers | ✅ |
+| Follow Profile | POST | `/api/profiles/{id}/follow/` | Allows following profiles | ✅ |
+| User Profile | GET | `/api/profiles/me/` | Returns authenticated user's profile | ✅ |
+| Update Profile | PUT | `/api/profiles/me/` | Allows profile updates | ✅ |
+
+### Post Endpoints
+
+| Feature | Method | Endpoint | Expected Result | Test Result |
+|---------|--------|----------|-----------------|-------------|
+| Post List | GET | `/api/posts/` | Returns all posts (filtered for auth users) | ✅ |
+| Create Post | POST | `/api/posts/` | Allows post creation | ✅ |
+| Post Detail | GET | `/api/posts/{id}/` | Returns specific post | ✅ |
+| Update Post | PUT | `/api/posts/{id}/` | Allows post updates (owner only) | ✅ |
+| Delete Post | DELETE | `/api/posts/{id}/` | Allows post deletion (owner only) | ✅ |
+| Post Likes | GET | `/api/posts/{id}/like/` | Returns post likes | ✅ |
+| Like Post | POST | `/api/posts/{id}/like/` | Allows liking posts | ✅ |
+| Post Search | GET | `/api/posts/search/` | Returns posts by keywords | ✅ |
+| Profile Posts | GET | `/api/profiles/{id}/posts/` | Returns profile's posts | ✅ |
+| Followed Posts | GET | `/api/posts/following/` | Returns posts from followed profiles | ✅ |
+| Liked Posts | GET | `/api/posts/liked/` | Returns user's liked posts | ✅ |
+
+### Comment Endpoints
+
+| Feature | Method | Endpoint | Expected Result | Test Result |
+|---------|--------|----------|-----------------|-------------|
+| Comment List | GET | `/api/posts/{id}/comments/` | Returns post comments | ✅ |
+| Create Comment | POST | `/api/posts/{id}/comments/` | Allows comment creation | ✅ |
+| Comment Detail | GET | `/api/comments/{id}/` | Returns specific comment | ✅ |
+| Update Comment | PUT | `/api/comments/{id}/` | Allows comment updates (owner only) | ✅ |
+| Delete Comment | DELETE | `/api/comments/{id}/` | Allows comment deletion (owner only) | ✅ |
+
+## Testing Methodology
+Each endpoint was tested for:
+- Proper HTTP status codes
+- Authentication and authorization requirements
+- Request/response validation
+- Error handling
+- Data consistency across operations
+
+All tests were performed with both authenticated and unauthenticated requests where applicable to verify proper access control.
 
 ## Bugs
 **Application Error in Production for Unauthorized Unsafe Methods**  
@@ -141,7 +186,7 @@ Issue: The signup and signin pages were automatically redirecting users directly
 Fix: This was fixed by correcting the flawed routing logic. The code was updated to ensure the authentication pages (/signup and /signin) remain accessible and do not redirect away until a user successfully submits a form. The forms themselves were also verified to be fully functional, restoring the ability for users to register and log in.
 
 
-### Git
+### Github
 - I regularly used `git add <filename>` to stage my changes, followed by `git commit -m 'short descriptive message here'` to commit them to the local repository.
 - To push my changes, I used `git push` which triggered an automatic deployment to Heroku from the 'main' branch.
 
