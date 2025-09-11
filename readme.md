@@ -39,8 +39,8 @@ The goal of this project is to showcase my expertise in React, Typescript, Djang
  * [Bugs](#bugs)
 * [Git](#git)
 * [Deployment](#deployment)
-  * [Deployment Preparation](#deployment-preparation)
-  * [Setup](#setup)
+  * [Deployment](#deployment)
+  * [heroku](#heroku)
 * [Credits](#credits)
   * [Used Technologies and Tools](#used-technologies-and-tools)
   * [Django Apps](#django-apps)
@@ -136,48 +136,230 @@ The goal of this project is to showcase my expertise in React, Typescript, Djang
 
 ## Bugs
 **Application Error in Production for Unauthorized Unsafe Methods**  
-Unauthorized requests using unsafe methods are causing errors in the live application. On local deployments, these requests return a 401 error. The issue might be related to the remote PostgreSQL database but hasn't been addressed due to time constraints. This happened after reaching out to tutor support.
+Issue: The signup and signin pages were automatically redirecting users directly to the homepage. This bug completely blocked access to the authentication forms, preventing users from registering new accounts or logging into existing ones. As a result, users could not authenticate and were unable to access the application's core functionality.
 
-Two days before the submission deadline of my PP5, I received a message from two Code Institute staff members informing me about a required password change for my Neon database.
+Fix: This was fixed by correcting the flawed routing logic. The code was updated to ensure the authentication pages (/signup and /signin) remain accessible and do not redirect away until a user successfully submits a form. The forms themselves were also verified to be fully functional, restoring the ability for users to register and log in.
 
-After updating the database URL, the application’s functions and data fell into disarray.
-
-Unfortunately, the same issue also affected my PP4 project, which is or was still under assessment at the time. As a result, I suddenly had to manage and fix problems in both projects at once.
-
-For PP4, I lost all content because no backup had been created. I did not receive any support in this situation and got rejected by tutor support for two reasons and had to manually recreate all content, user accounts, and superusers on my own.
-
-I immediately reached out to another tutor Support again to resolve the issue.
-
-However, one of the tutors caused further issues in my PP5 project, disrupting basic functionalites. Instead of solving the existing issues, additional complications were introduced, and unfortunately I did not receive further assistance.
-
-Ultimately, I was able to bring my project to a functional level with all core logic in place, to avoid the risk of failing the assessment.
-
-I am willing to provide more details regarding this matter if needed to keep everything transparent.
 
 ### Git
 - I regularly used `git add <filename>` to stage my changes, followed by `git commit -m 'short descriptive message here'` to commit them to the local repository.
 - To push my changes, I used `git push` which triggered an automatic deployment to Heroku from the 'main' branch.
 
-## Deployment
+## **Deployment**
 
-The website was deployed on Heroku.
+### **Heroku**
 
-### Deployment Preparation
-Before deploying, the following preparations were made:
-- The `DEBUG` setting in `settings.py` was set to `False`.
-- All dependencies were recorded in the `requirements.txt` file by running `pip3 freeze --local > requirements.txt`.
-- The start command `web: gunicorn Loopin-api.wsgi` was added to the `Procfile`.
-
-### Setup
-To deploy the app on Heroku, follow these steps:
-- Create a new app from the Heroku dashboard.
-- Choose an app name and select a region, then click "Create App".
-- In the app’s settings, add necessary configuration variables such as Cloudinary URL, database URL, and Django secret key.
-- Add the "Heroku/Python" buildpack.
-- Go to the "Deploy" tab and choose "GitHub" as the deployment method, then follow the steps to link your GitHub repository to Heroku.
-- Once connected, you can either enable automatic deployment or manually deploy a branch by clicking the "Deploy Branch" button.
-
+Deployed via **Heroku**.
 The live link can be found here: [Loopin API](#)
+
+
+Steps:
+1. Created Heroku app and linked GitHub repo.
+2. Added PostgreSQL and Cloudinary add-ons.
+3. Config Vars added: `DATABASE_URL`, `SECRET_KEY`, `CLOUDINARY_URL`, etc.
+4. Added `Procfile`, `requirements.txt`, `runtime.txt`.
+5. Disabled Django debug, ensured `.env` file excluded via `.gitignore`.
+
+
+---
+
+
+> [!IMPORTANT]
+> You would replace the values with your own if cloning/forking my repository.
+
+### Setting Config Vars on Heroku
+
+- Click on the **Settings** tab of your Heroku app.
+- Scroll down to the **Config Vars** section and click **Reveal Config Vars**.
+- Add the required environment variables by entering the appropriate **Key** and **Value**.
+
+![loopinapp](assets/images/loopin-heroku-config-vars.png)
+![loopinapp](assets/images/heroku_settings_var.png)
+
+| Key | Value |
+| --- | --- |
+| `CLOUDINARY_URL` | user-inserts-own-cloudinary-url |
+| `DATABASE_URL` | user-inserts-own-postgres-database-url |
+| `SECRET_KEY` | any-random-secret-key |
+| `DISABLE_COLLECTSTATIC` | 1 (*this is temporary, and can be removed for the final deployment*) |
+
+I have used [Randomkeygen](https://randomkeygen.com/) to generate my individual `SECRET_KEY`
+
+Heroku needs some additional files in order to deploy properly.
+- [requirements.txt](requirements.txt)
+- [Procfile](Procfile)
+
+You can install this project's **[requirements.txt](requirements.txt)** (*where applicable*) using:
+
+- `pip3 install -r requirements.txt`
+
+If you have your own packages that have been installed, then the requirements file needs updated using:
+
+- `pip3 freeze --local > requirements.txt`
+
+The **[Procfile](Procfile)** can be created with the following command:
+
+- `echo web: gunicorn app_name.wsgi > Procfile`
+- *replace `app_name` with the name of your primary Django app name; the folder where `settings.py` is located*
+
+For Heroku deployment, follow these steps to connect your own GitHub repository to the newly created app:
+
+Either (*recommended*):
+
+- Select **Automatic Deployment** from the Heroku app.
+
+Or:
+
+- In the Terminal/CLI, connect to Heroku using this command: `heroku login -i`
+- Set the remote for Heroku: `heroku git:remote -a app_name` (*replace `app_name` with your app name*)
+- After performing the standard Git `add`, `commit`, and `push` to GitHub, you can now type:
+	- `git push heroku main`
+
+Or:
+
+Deploy manually:
+To deploy your app manually via the Heroku Dashboard:
+
+- Go to your app on the Heroku website.
+![loopinapp](assets/images/loopinapp.png)
+
+- In the top menu, click on **“Deploy.”**
+![Deploy1](assets/images/deploy-branch.png)
+- Scroll down to the Manual Deploy section and click on **Deploy Branch**
+![Deploy2](assets/documentation/deploy2.png)
+
+- After a successful deployment, click the **“View”** button to open your live app.
+![Deploy3](assets/images/deployed.png)
+
+The project should now be connected and deployed to Heroku!
+
+### Cloudinary API
+
+- **Create an account** and log in at [cloudinary.com](https://cloudinary.com).
+- Once logged in, go to your **Dashboard**.
+- Click on **Go to API Keys**:  
+   ![dashboard](assets/images/cloudinary_dashboard.png)
+
+- Then click on **Generate New API Key**:  
+   ![generate_api](assets/images/cloudinary_generate_api.png)
+
+- You will now see:
+   - **Key Name**
+   - **API Key**
+   - **API Secret**
+
+- These are your Cloudinary credentials used to connect your app.
+- Copy the `Key Name`, `API Key`, and `API Secret`.
+- Store them in your environment variables (e.g., in a `.env` or `env.py` file):
+
+   ```env
+   CLOUDINARY_URL=cloudinary://123456789012345:AbCdEfGhIjKlMnOpQrStuVwXyZa@your_cloud_name
+   ```
+
+   > ⚠️ Make sure you include the full URL (starting with `cloudinary://`) as the **value** for the key `CLOUDINARY_URL`.
+
+- Add the same `CLOUDINARY_URL` as a Config Var in Heroku under **Settings > Config Vars**.
+
+### PostgreSQL
+
+This project uses a [Code Institute PostgreSQL Database](https://dbs.ci-dbs.net) for the Relational Database with Django.
+
+> [!NOTE]
+> PostgreSQL databases by Code Institute are only available to CI Students.
+> You must acquire your own PostgreSQL database through some other method if you plan to clone/fork this repository.
+
+To obtain my own Postgres Database from Code Institute, I followed these steps:
+
+- Submitted my email address to the CI PostgreSQL Database link above.
+- An email was sent to me with my new Postgres Database.
+- The Database connection string will resemble something like this:
+    - `postgres://<db_username>:<db_password>@<db_host_url>/<db_name>`
+- You can use the above URL with Django; simply paste it into your `env.py` file and Heroku Config Vars as `DATABASE_URL`.
+
+## Clone and Fork
+
+You can easily clone or fork the **Loopin API** repository for further development.
+
+1. Visit the repository on GitHub: [Loopin API Repository](https://github.com/RazmikMovsisyan/drf-api).
+2. Click the **Fork** button to create your own copy.
+
+For either method, you will need to install any applicable packages found within the [requirements.txt](requirements.txt) file.
+
+- `pip3 install -r requirements.txt`.
+
+You will need to create a new file called `env.py` at the root-level, and include the same environment variables listed above from the Heroku deployment steps.
+
+> [!IMPORTANT]
+> This is a sample only; you would replace the values with your own if cloning/forking my repository.
+
+Sample `env.py` file:
+
+```python
+import os
+
+os.environ.setdefault("SECRET_KEY", "any-random-secret-key")
+os.environ.setdefault("DATABASE_URL", "user-inserts-own-postgres-database-url")
+os.environ.setdefault("CLOUDINARY_URL", "user-inserts-own-cloudinary-url")  # only if using Cloudinary
+os.environ.setdefault("HOST", "user-inserts-own-host")
+os.environ.setdefault("CSRF_TRUSTED_ORIGIN", "https://localhost")
+
+# local environment only (do not include these in production/deployment!)
+# (in settings I made sure that DEBUG = False in heroku if you do not add DEBUG to your config vars there)
+os.environ.setdefault("DEBUG", "False")
+```
+
+Once the project is cloned or forked, in order to run it locally, you'll need to follow these steps:
+
+- Start the Django app: `python3 manage.py runserver`
+- Stop the app once it's loaded: `CTRL+C` (*Windows/Linux*) or `⌘+C` (*Mac*)
+- Make any necessary migrations: `python3 manage.py makemigrations --dry-run` then `python3 manage.py makemigrations`
+- Migrate the data to the database: `python3 manage.py migrate --plan` then `python3 manage.py migrate`
+- Create a superuser: `python3 manage.py createsuperuser`
+- Load fixtures (*if applicable*): `python3 manage.py loaddata file-name.json` (*repeat for each file*)
+- Everything should be ready now, so run the Django app again: `python3 manage.py runserver`
+
+If you'd like to backup your database models, use the following command for each model you'd like to create a fixture for:
+
+- `python3 manage.py dumpdata your-model > your-model.json`
+- *repeat this action for each model you wish to backup*
+- **NOTE**: You should never make a backup of the default *admin* or *users* data with confidential information.
+
+
+#### **Clone the Repository using VS Code**
+
+The repository has a single branch with a clear commit history. To clone the repository:
+
+##### For **Mac** Users:
+
+1. Open the **Terminal**.
+2. Navigate to your preferred directory:  
+   ```bash
+   cd /path/to/your/directory
+   ```
+3. Clone the repository:  
+   ```bash
+   git clone https://github.com/RazmikMovsisyan/drf-api
+   ```
+4. Navigate into the directory:  
+   ```bash
+   cd drf_api
+   ```
+
+##### For **Windows** Users:
+
+1. Open **Command Prompt** or **PowerShell**.
+2. Navigate to the desired directory:  
+   ```cmd
+   cd C:\path\to\your\directory
+   ```
+3. Clone the repository:  
+   ```cmd
+   git clone https://github.com/RazmikMovsisyan/drf-api
+   ```
+4. Navigate into the directory:  
+   ```cmd
+   cd drf_api
+   ```
 
 # Credits
 
