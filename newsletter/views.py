@@ -13,13 +13,7 @@ def subscribe(request):
     
     # Check if already subscribed and active
     if NewsletterSubscriber.objects.filter(email=email, subscribed=True).exists():
-        subscriber = NewsletterSubscriber.objects.get(email=email)
-        serializer = NewsletterSubscriberSerializer(subscriber)
-        return Response({
-            'message': 'Already subscribed',  # Diese Nachricht muss genau so sein
-            'subscriber': serializer.data
-        }, status=status.HTTP_200_OK)  # 200 statt 400, da es kein Fehler ist
-
+        return Response({'error': 'Already subscribed'}, status=status.HTTP_400_BAD_REQUEST)
     
     # If exists but unsubscribed, resubscribe
     try:
@@ -28,27 +22,20 @@ def subscribe(request):
         subscriber.confirmation_code = uuid.uuid4()
         subscriber.save()
         serializer = NewsletterSubscriberSerializer(subscriber)
-        return Response({
-            'message': 'Successfully resubscribed',
-            'subscriber': serializer.data
-        }, status=status.HTTP_200_OK)
+        return Response({'message': 'Successfully resubscribed'}, status=status.HTTP_200_OK)
     except NewsletterSubscriber.DoesNotExist:
         # Create new subscriber
         subscriber = NewsletterSubscriber(email=email)
         subscriber.confirmation_code = uuid.uuid4()
         subscriber.save()
         serializer = NewsletterSubscriberSerializer(subscriber)
-        return Response({
-            'message': 'Successfully subscribed',
-            'subscriber': serializer.data
-        }, status=status.HTTP_201_CREATED)
+        return Response({'message': 'Successfully subscribed'}, status=status.HTTP_201_CREATED)
 
 @api_view(['POST'])
 def unsubscribe_with_code(request, code):
     try:
         subscriber = NewsletterSubscriber.objects.get(confirmation_code=code)
-        subscriber.subscribed = False
-        subscriber.save()
+        subscriber.delete()  # Eintrag komplett löschen statt nur subscribed auf False setzen
         return Response({'message': 'Successfully unsubscribed'}, status=status.HTTP_200_OK)
     except NewsletterSubscriber.DoesNotExist:
         return Response({'error': 'Invalid unsubscribe link'}, status=status.HTTP_404_NOT_FOUND)
@@ -61,8 +48,7 @@ def unsubscribe_with_email(request):
     
     try:
         subscriber = NewsletterSubscriber.objects.get(email=email)
-        subscriber.subscribed = False
-        subscriber.save()
+        subscriber.delete()  # Eintrag komplett löschen statt nur subscribed auf False setzen
         return Response({'message': 'Successfully unsubscribed'}, status=status.HTTP_200_OK)
     except NewsletterSubscriber.DoesNotExist:
         return Response({'error': 'Email not found'}, status=status.HTTP_404_NOT_FOUND)
