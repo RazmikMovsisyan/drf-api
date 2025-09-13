@@ -11,20 +11,17 @@ class PostSerializer(serializers.ModelSerializer):
     like_id = serializers.SerializerMethodField()
     likes_count = serializers.ReadOnlyField()
     comments_count = serializers.ReadOnlyField()
-    image = serializers.ReadOnlyField(source='image.url')
+    image = serializers.CharField(required=False, allow_blank=True)
 
-    def validate_image(self, value):
-        if value.size > 2 * 1024 * 1024:
-            raise serializers.ValidationError('Image size larger than 2MB!')
-        if value.image.height > 4096:
-            raise serializers.ValidationError(
-                'Image height larger than 4096px!'
-            )
-        if value.image.width > 4096:
-            raise serializers.ValidationError(
-                'Image width larger than 4096px!'
-            )
-        return value
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        request = self.context.get('request')
+        if request and request.method == 'GET':
+            try:
+                rep['image'] = instance.image.url
+            except Exception:
+                rep['image'] = ''
+        return rep
 
     def get_is_owner(self, obj):
         request = self.context['request']
