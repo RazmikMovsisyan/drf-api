@@ -11,7 +11,7 @@ class PostSerializer(serializers.ModelSerializer):
     like_id = serializers.SerializerMethodField()
     likes_count = serializers.ReadOnlyField()
     comments_count = serializers.ReadOnlyField()
-    image = serializers.CharField(required=False, allow_blank=True)
+    image = serializers.ImageField(required=False)
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
