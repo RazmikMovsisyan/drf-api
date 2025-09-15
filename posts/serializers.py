@@ -4,10 +4,10 @@ from likes.models import Like
 
 
 class PostSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
+    owner = serializers.ReadOnlyField(source="owner.username")
     is_owner = serializers.SerializerMethodField()
-    profile_id = serializers.ReadOnlyField(source='owner.profile.id')
-    profile_image = serializers.ReadOnlyField(source='owner.profile.image')
+    profile_id = serializers.ReadOnlyField(source="owner.profile.id")
+    profile_image = serializers.ReadOnlyField(source="owner.profile.image")
     like_id = serializers.SerializerMethodField()
     likes_count = serializers.ReadOnlyField()
     comments_count = serializers.ReadOnlyField()
@@ -15,32 +15,40 @@ class PostSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        request = self.context.get('request')
-        if request and request.method == 'GET':
+        request = self.context.get("request")
+        if request and request.method == "GET":
             try:
-                rep['image'] = instance.image.url
+                rep["image"] = instance.image.url
             except Exception:
-                rep['image'] = ''
+                rep["image"] = ""
         return rep
 
     def get_is_owner(self, obj):
-        request = self.context['request']
+        request = self.context["request"]
         return request.user == obj.owner
 
     def get_like_id(self, obj):
-        user = self.context['request'].user
+        user = self.context["request"].user
         if user.is_authenticated:
-            like = Like.objects.filter(
-                owner=user, post=obj
-            ).first()
+            like = Like.objects.filter(owner=user, post=obj).first()
             return like.id if like else None
         return None
 
     class Meta:
         model = Post
         fields = [
-            'id', 'owner', 'is_owner', 'profile_id',
-            'profile_image', 'created_at', 'updated_at',
-            'title', 'content', 'image', 'image_filter',
-            'like_id', 'likes_count', 'comments_count',
+            "id",
+            "owner",
+            "is_owner",
+            "profile_id",
+            "profile_image",
+            "created_at",
+            "updated_at",
+            "title",
+            "content",
+            "image",
+            "image_filter",
+            "like_id",
+            "likes_count",
+            "comments_count",
         ]

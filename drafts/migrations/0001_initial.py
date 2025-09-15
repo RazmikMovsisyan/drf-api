@@ -11,26 +11,66 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('posts', '0001_initial'),
+        ("posts", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Draft',
+            name="Draft",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content', models.TextField(blank=True, max_length=1000)),
-                ('image', models.ImageField(blank=True, null=True, upload_to='drafts/%Y/%m/%d/')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('status', models.CharField(choices=[('draft', 'Entwurf'), ('scheduled', 'Geplant'), ('published', 'Veröffentlicht')], default='draft', max_length=10)),
-                ('scheduled_time', models.DateTimeField(blank=True, null=True)),
-                ('published_at', models.DateTimeField(blank=True, null=True)),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='drafts', to=settings.AUTH_USER_MODEL)),
-                ('published_post', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='original_draft', to='posts.post')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("content", models.TextField(blank=True, max_length=1000)),
+                (
+                    "image",
+                    models.ImageField(
+                        blank=True, null=True, upload_to="drafts/%Y/%m/%d/"
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("draft", "Entwurf"),
+                            ("scheduled", "Geplant"),
+                            ("published", "Veröffentlicht"),
+                        ],
+                        default="draft",
+                        max_length=10,
+                    ),
+                ),
+                ("scheduled_time", models.DateTimeField(blank=True, null=True)),
+                ("published_at", models.DateTimeField(blank=True, null=True)),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="drafts",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "published_post",
+                    models.OneToOneField(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="original_draft",
+                        to="posts.post",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-updated_at'],
+                "ordering": ["-updated_at"],
             },
         ),
     ]
