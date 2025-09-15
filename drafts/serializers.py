@@ -18,7 +18,6 @@ class DraftSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
             "status",
-            "scheduled_time",
             "published_at",
             "published_post",
             "is_owner",

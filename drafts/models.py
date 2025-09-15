@@ -7,7 +7,6 @@ from posts.models import Post
 class Draft(models.Model):
     DRAFT_STATUS = [
         ("draft", "Draft"),
-        ("scheduled", "Scheduled"),
         ("published", "Published"),
     ]
 
@@ -24,7 +23,6 @@ class Draft(models.Model):
     status = models.CharField(
         max_length=10, choices=DRAFT_STATUS, default="draft"
     )
-    scheduled_time = models.DateTimeField(blank=True, null=True)
     published_at = models.DateTimeField(blank=True, null=True)
     published_post = models.OneToOneField(
         Post,
@@ -67,9 +65,3 @@ class Draft(models.Model):
         self.save()
 
         return post
-
-    def schedule(self, schedule_time):
-        """Schedule the draft for later publication"""
-        self.status = "scheduled"
-        self.scheduled_time = schedule_time
-        self.save()
