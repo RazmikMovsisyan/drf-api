@@ -22,6 +22,9 @@ class DraftSerializer(serializers.ModelSerializer):
             "published_post",
             "is_owner",
         ]
+        extra_kwargs = {
+            'title': {'required': True}
+        }
 
     def get_is_owner(self, obj):
         request = self.context.get("request")
