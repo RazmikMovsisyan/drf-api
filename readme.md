@@ -1,176 +1,211 @@
 # Loopin
+
 [Click here to go to live Project](https://loopin-8006788e0f02.herokuapp.com/)
 
 ![alt text](assets/images/API.png)
 
 Loopin is a social networking platform designed for authenticated users to share images and content with others. Members can post, like, and comment on content, as well as edit or delete their own posts. They can also follow other users to create a personalized feed of posts.
 
-
 [Frontend Github](https://github.com/RazmikMovsisyan/loopin)
 
 [Frontend Heroku](https://loopinapp-d364a1b22906.herokuapp.com/)
 
 ### Objective
+
 The goal of this project is to showcase my expertise in React, Typescript, Django Rest Framework, and Python. Additionally, I aim to demonstrate my skills in Object-Oriented Programming and core programming concepts such as flow control, iteration, conditionals, functions, and data structures.
 
 ## Table of Contents
-* [Endpoints](#endpoints)
-  * [Authentication](#authentication)
-    * [Registration](#registration)
-    * [API Tokens](#api-tokens)
-    * [API Token Refresh](#api-tokens-refresh)
-  * [Profiles](#profiles)
-    * [Profile List](#profile-list)
-    * [Profile Detail](#profile-detail)
-    * [Profile Follow](#profile-follow)
-    * [User Profile](#user-profile)
-  * [Posts](#posts) 
-    * [Post List](#post-list)
-    * [Post Detail](#post-detail)
-    * [Post Like](#post-like)
-    * [Post Search](#post-search)
-    * [Profile Post List](#profile-post-list)
-    * [Follow Post List](#follow-post-list)
-    * [Liked Post List](#liked-post-list)
-  * [Comments](#comments) 
-    * [Comment List](#comment-list)
-    * [Comment Detail](#comment-detail)
- * [Manual Testing](#manual-testing)
- * [Bugs](#bugs)
-* [Github](#github)
-* [Deployment](#deployment)
-  * [Deployment](#deployment)
-  * [heroku](#heroku)
-* [Credits](#credits)
-  * [Used Technologies and Tools](#used-technologies-and-tools)
-  * [Django Apps](#django-apps)
-  * [Content and Media](#content-and-media)
+
+- [Endpoints](#endpoints)
+  - [Authentication](#authentication)
+    - [Registration](#registration)
+    - [API Tokens](#api-tokens)
+    - [API Token Refresh](#api-tokens-refresh)
+  - [Profiles](#profiles)
+    - [Profile List](#profile-list)
+    - [Profile Detail](#profile-detail)
+    - [Profile Follow](#profile-follow)
+    - [User Profile](#user-profile)
+  - [Posts](#posts)
+    - [Post List](#post-list)
+    - [Post Detail](#post-detail)
+    - [Post Like](#post-like)
+    - [Post Search](#post-search)
+    - [Profile Post List](#profile-post-list)
+    - [Follow Post List](#follow-post-list)
+    - [Liked Post List](#liked-post-list)
+  - [Comments](#comments)
+    - [Comment List](#comment-list)
+    - [Comment Detail](#comment-detail)
+- [ER Diagram Django API](#er-diagram-django-api)
+- [Manual Testing](#manual-testing)
+- [Bugs](#bugs)
+- [Github](#github)
+- [Deployment](#deployment)
+  - [Deployment](#deployment)
+  - [heroku](#heroku)
+- [Credits](#credits)
+  - [Used Technologies and Tools](#used-technologies-and-tools)
+  - [Django Apps](#django-apps)
+  - [Content and Media](#content-and-media)
 
 ## Endpoints
 
 ## Authentication
 
 #### Registration
+
 - **POST:** Creates a new user
 
 #### API Tokens
+
 - **POST:** Returns a set of JWT tokens
 
 #### API Token Refresh
+
 - **POST:** Allows authenticated users to refresh their access token by providing a refresh token
 
 ## Profiles
 
 #### Profile List
+
 - **GET:** Returns a list of all profiles
 
 #### Profile Detail
+
 - **GET:** Returns the profile specified by ID
 
 #### Profile Follow
-- **GET:** Lists profiles following the specified profile  
+
+- **GET:** Lists profiles following the specified profile
 - **POST:** Allows authenticated users to follow the specified profile
 
 #### User Profile
-- **GET:** Returns the profile of the authenticated user  
+
+- **GET:** Returns the profile of the authenticated user
 - **PUT:** Allows users to update their profile
 
 ## Posts
 
 #### Post List
-- **GET:** Returns a list of all posts  
-  - Authenticated: Filters out posts from the requesting user and the profiles they follow  
+
+- **GET:** Returns a list of all posts
+  - Authenticated: Filters out posts from the requesting user and the profiles they follow
 - **POST:** Allows authenticated users to create posts
 
 #### Post Detail
-- **GET:** Returns the post specified by ID  
-- **PUT:** Allows the post owner to update the post  
+
+- **GET:** Returns the post specified by ID
+- **PUT:** Allows the post owner to update the post
 - **DELETE:** Allows the post owner to delete the post
 
 #### Post Like
-- **GET:** Returns a list of profiles who liked the specified post  
+
+- **GET:** Returns a list of profiles who liked the specified post
 - **POST:** Allows authenticated users to like the specified post
 
 #### Post Search
+
 - **GET:** Returns posts containing the specified keywords in their title, description, or author's profile name
 
 #### Profile Post List
+
 - **GET:** Returns all posts from the specified profile
 
 #### Follow Post List
+
 - **GET:** Allows authenticated users to retrieve a list of posts from profiles they follow
 
 #### Liked Post List
+
 - **GET:** Allows authenticated users to retrieve a list of posts they liked
 
 ## Comments
 
 #### Comment List
-- **GET:** Returns all comments from a specified post  
+
+- **GET:** Returns all comments from a specified post
 - **POST:** Allows authenticated users to create comments on the specified post
 
 #### Comment Detail
-- **GET:** Returns the comment specified by ID  
-- **PUT:** Allows the comment owner to update the comment  
+
+- **GET:** Returns the comment specified by ID
+- **PUT:** Allows the comment owner to update the comment
 - **DELETE:** Allows the comment owner to delete the comment
 
+### **ER Diagram Django API**
+
+## Database Design
+
+Based on my project structure, I created an Entity-Relationship Diagram (ERD) that illustrates the relationships between the models in your Django API using Mermaid. I chose Mermaid because it allows for quick, readable diagrams directly from text, making it easy to maintain and update alongside your code.
+
+This ERD highlights the core models of the Django project and their connections.
+I kept it simple and clear so that anyone can quickly understand how the data is structured and how the models interact with each other.
+
+![Entity Relationship Diagrams](assets/images/entity-relationship-diagrams.png)
+[Live Preview in Mermaid Editor](https://mermaid.live/edit#pako:eNqtlW1vmzAQx78K8uu0goQSwrspo1W0JExJpmoTEjJwIZ7AjmyzLEvz3WcgTytuk0m1hPDd_e372fjwDiUsBeQh4J8JzjguQmqo9m3uz4yXl7s7tjO-zoLH0dg3PGOFhSYczBcqlnDAEjTxYTCZ-NNKsuFEqxiPvvjvzfAYjMfB82j6pERLluds86bIn82ViIio0UEaxdtGW2O2kE4rugwfeDgkQH6BRjD8tPCfgtl3JYohZzQTkWQhvYDaNf2qESoNkp5tITmhmVEK4BQX0ApAgUne8q6xEBvGL-ZJ1WZJUkDdiX4yQuEQ3TevA_fh671DVNkVTqTBjAlr-UiBM9CAlOuqm0ZY6jiq_bsCgUu5YloMSWTe3qqEUQlU3gzYnLAz4O30xxNzZQFrJmT02sk2VL-3LfwPAK3P7sdQvknzT8JzcV7J2k5QeU91-v-ZT1V4vdi0hZaCSDhZS8KoZvap_zwf-4vFTcX8qmZP_KKMqxzx5RJQB2WcpMiTvIQOKoCrwcpEdZoQyRUoWOSpbgpLXOYyRCGthq0x_cFYcRzJWZmtkLfEuVBWcyoOP_GjRBUUm29pcrTVDMjbod_Is3ruvWWZXac_6A6sXm_w0EFb5PUrr2vbtvvgOLZjWvsO-lPnNO_7btceqMe0-6brOl1FADQFPmQllchzrA6ClEjGJ82VUt8s-7-GH-Lj)
+
 ### Manual Testing
-- I thoroughly tested each page and feature manually during the development process.  
+
+- I thoroughly tested each page and feature manually during the development process.
 
 ## API Manual Testing
 
 ## Overview
+
 Comprehensive manual testing was performed on all API endpoints to ensure proper functionality across authentication, profiles, posts, and comments features.
 
 ## Test Results
 
 ### Authentication Endpoints
 
-| Feature | Method | Endpoint | Expected Result | Test Result |
-|---------|--------|----------|-----------------|-------------|
-| User Registration | POST | `/api/auth/registration/` | Creates new user account | ✅ |
-| Token Generation | POST | `/api/auth/token/` | Returns JWT tokens | ✅ |
-| Token Refresh | POST | `/api/auth/token/refresh/` | Refreshes access token | ✅ |
+| Feature           | Method | Endpoint                   | Expected Result          | Test Result |
+| ----------------- | ------ | -------------------------- | ------------------------ | ----------- |
+| User Registration | POST   | `/api/auth/registration/`  | Creates new user account | ✅          |
+| Token Generation  | POST   | `/api/auth/token/`         | Returns JWT tokens       | ✅          |
+| Token Refresh     | POST   | `/api/auth/token/refresh/` | Refreshes access token   | ✅          |
 
 ### Profile Endpoints
 
-| Feature | Method | Endpoint | Expected Result | Test Result |
-|---------|--------|----------|-----------------|-------------|
-| Profile List | GET | `/api/profiles/` | Returns all profiles | ✅ |
-| Profile Detail | GET | `/api/profiles/{id}/` | Returns specific profile | ✅ |
-| Profile Followers | GET | `/api/profiles/{id}/follow/` | Returns profile followers | ✅ |
-| Follow Profile | POST | `/api/profiles/{id}/follow/` | Allows following profiles | ✅ |
-| User Profile | GET | `/api/profiles/me/` | Returns authenticated user's profile | ✅ |
-| Update Profile | PUT | `/api/profiles/me/` | Allows profile updates | ✅ |
+| Feature           | Method | Endpoint                     | Expected Result                      | Test Result |
+| ----------------- | ------ | ---------------------------- | ------------------------------------ | ----------- |
+| Profile List      | GET    | `/api/profiles/`             | Returns all profiles                 | ✅          |
+| Profile Detail    | GET    | `/api/profiles/{id}/`        | Returns specific profile             | ✅          |
+| Profile Followers | GET    | `/api/profiles/{id}/follow/` | Returns profile followers            | ✅          |
+| Follow Profile    | POST   | `/api/profiles/{id}/follow/` | Allows following profiles            | ✅          |
+| User Profile      | GET    | `/api/profiles/me/`          | Returns authenticated user's profile | ✅          |
+| Update Profile    | PUT    | `/api/profiles/me/`          | Allows profile updates               | ✅          |
 
 ### Post Endpoints
 
-| Feature | Method | Endpoint | Expected Result | Test Result |
-|---------|--------|----------|-----------------|-------------|
-| Post List | GET | `/api/posts/` | Returns all posts (filtered for auth users) | ✅ |
-| Create Post | POST | `/api/posts/` | Allows post creation | ✅ |
-| Post Detail | GET | `/api/posts/{id}/` | Returns specific post | ✅ |
-| Update Post | PUT | `/api/posts/{id}/` | Allows post updates (owner only) | ✅ |
-| Delete Post | DELETE | `/api/posts/{id}/` | Allows post deletion (owner only) | ✅ |
-| Post Likes | GET | `/api/posts/{id}/like/` | Returns post likes | ✅ |
-| Like Post | POST | `/api/posts/{id}/like/` | Allows liking posts | ✅ |
-| Post Search | GET | `/api/posts/search/` | Returns posts by keywords | ✅ |
-| Profile Posts | GET | `/api/profiles/{id}/posts/` | Returns profile's posts | ✅ |
-| Followed Posts | GET | `/api/posts/following/` | Returns posts from followed profiles | ✅ |
-| Liked Posts | GET | `/api/posts/liked/` | Returns user's liked posts | ✅ |
+| Feature        | Method | Endpoint                    | Expected Result                             | Test Result |
+| -------------- | ------ | --------------------------- | ------------------------------------------- | ----------- |
+| Post List      | GET    | `/api/posts/`               | Returns all posts (filtered for auth users) | ✅          |
+| Create Post    | POST   | `/api/posts/`               | Allows post creation                        | ✅          |
+| Post Detail    | GET    | `/api/posts/{id}/`          | Returns specific post                       | ✅          |
+| Update Post    | PUT    | `/api/posts/{id}/`          | Allows post updates (owner only)            | ✅          |
+| Delete Post    | DELETE | `/api/posts/{id}/`          | Allows post deletion (owner only)           | ✅          |
+| Post Likes     | GET    | `/api/posts/{id}/like/`     | Returns post likes                          | ✅          |
+| Like Post      | POST   | `/api/posts/{id}/like/`     | Allows liking posts                         | ✅          |
+| Post Search    | GET    | `/api/posts/search/`        | Returns posts by keywords                   | ✅          |
+| Profile Posts  | GET    | `/api/profiles/{id}/posts/` | Returns profile's posts                     | ✅          |
+| Followed Posts | GET    | `/api/posts/following/`     | Returns posts from followed profiles        | ✅          |
+| Liked Posts    | GET    | `/api/posts/liked/`         | Returns user's liked posts                  | ✅          |
 
 ### Comment Endpoints
 
-| Feature | Method | Endpoint | Expected Result | Test Result |
-|---------|--------|----------|-----------------|-------------|
-| Comment List | GET | `/api/posts/{id}/comments/` | Returns post comments | ✅ |
-| Create Comment | POST | `/api/posts/{id}/comments/` | Allows comment creation | ✅ |
-| Comment Detail | GET | `/api/comments/{id}/` | Returns specific comment | ✅ |
-| Update Comment | PUT | `/api/comments/{id}/` | Allows comment updates (owner only) | ✅ |
-| Delete Comment | DELETE | `/api/comments/{id}/` | Allows comment deletion (owner only) | ✅ |
+| Feature        | Method | Endpoint                    | Expected Result                      | Test Result |
+| -------------- | ------ | --------------------------- | ------------------------------------ | ----------- |
+| Comment List   | GET    | `/api/posts/{id}/comments/` | Returns post comments                | ✅          |
+| Create Comment | POST   | `/api/posts/{id}/comments/` | Allows comment creation              | ✅          |
+| Comment Detail | GET    | `/api/comments/{id}/`       | Returns specific comment             | ✅          |
+| Update Comment | PUT    | `/api/comments/{id}/`       | Allows comment updates (owner only)  | ✅          |
+| Delete Comment | DELETE | `/api/comments/{id}/`       | Allows comment deletion (owner only) | ✅          |
 
 ## Testing Methodology
+
 Each endpoint was tested for:
+
 - Proper HTTP status codes
 - Authentication and authorization requirements
 - Request/response validation
@@ -180,13 +215,14 @@ Each endpoint was tested for:
 All tests were performed with both authenticated and unauthenticated requests where applicable to verify proper access control.
 
 ## Bugs
+
 **Application Error in Production for Unauthorized Unsafe Methods**  
 Issue: The signup and signin pages were automatically redirecting users directly to the homepage. This bug completely blocked access to the authentication forms, preventing users from registering new accounts or logging into existing ones. As a result, users could not authenticate and were unable to access the application's core functionality.
 
 Fix: This was fixed by correcting the flawed routing logic. The code was updated to ensure the authentication pages (/signup and /signin) remain accessible and do not redirect away until a user successfully submits a form. The forms themselves were also verified to be fully functional, restoring the ability for users to register and log in.
 
-
 ### Github
+
 - I regularly used `git add <filename>` to stage my changes, followed by `git commit -m 'short descriptive message here'` to commit them to the local repository.
 - To push my changes, I used `git push` which triggered an automatic deployment to Heroku from the 'main' branch.
 
@@ -197,17 +233,15 @@ Fix: This was fixed by correcting the flawed routing logic. The code was updated
 Deployed via **Heroku**.
 The live link can be found here: [Loopin API](https://loopin-8006788e0f02.herokuapp.com/)
 
-
 Steps:
+
 1. Created Heroku app and linked GitHub repo.
 2. Added PostgreSQL and Cloudinary add-ons.
 3. Config Vars added: `DATABASE_URL`, `SECRET_KEY`, `CLOUDINARY_URL`, etc.
 4. Added `Procfile`, `requirements.txt`, `runtime.txt`.
 5. Disabled Django debug, ensured `.env` file excluded via `.gitignore`.
 
-
 ---
-
 
 > [!IMPORTANT]
 > You would replace the values with your own if cloning/forking my repository.
@@ -221,20 +255,21 @@ Steps:
 ![loopinapp](assets/images/loopin-heroku-config-vars.png)
 ![loopinapp](assets/images/heroku_settings_var.png)
 
-| Key | Value |
-| --- | --- |
-| `CLOUDINARY_URL` | user-inserts-own-cloudinary-url |
-| `DATABASE_URL` | user-inserts-own-postgres-database-url |
-| `SECRET_KEY` | any-random-secret-key |
-| `DISABLE_COLLECTSTATIC` | 1 (*this is temporary, and can be removed for the final deployment*) |
+| Key                     | Value                                                                |
+| ----------------------- | -------------------------------------------------------------------- |
+| `CLOUDINARY_URL`        | user-inserts-own-cloudinary-url                                      |
+| `DATABASE_URL`          | user-inserts-own-postgres-database-url                               |
+| `SECRET_KEY`            | any-random-secret-key                                                |
+| `DISABLE_COLLECTSTATIC` | 1 (_this is temporary, and can be removed for the final deployment_) |
 
 I have used [Randomkeygen](https://randomkeygen.com/) to generate my individual `SECRET_KEY`
 
 Heroku needs some additional files in order to deploy properly.
+
 - [requirements.txt](requirements.txt)
 - [Procfile](Procfile)
 
-You can install this project's **[requirements.txt](requirements.txt)** (*where applicable*) using:
+You can install this project's **[requirements.txt](requirements.txt)** (_where applicable_) using:
 
 - `pip3 install -r requirements.txt`
 
@@ -245,20 +280,20 @@ If you have your own packages that have been installed, then the requirements fi
 The **[Procfile](Procfile)** can be created with the following command:
 
 - `echo web: gunicorn app_name.wsgi > Procfile`
-- *replace `app_name` with the name of your primary Django app name; the folder where `settings.py` is located*
+- _replace `app_name` with the name of your primary Django app name; the folder where `settings.py` is located_
 
 For Heroku deployment, follow these steps to connect your own GitHub repository to the newly created app:
 
-Either (*recommended*):
+Either (_recommended_):
 
 - Select **Automatic Deployment** from the Heroku app.
 
 Or:
 
 - In the Terminal/CLI, connect to Heroku using this command: `heroku login -i`
-- Set the remote for Heroku: `heroku git:remote -a app_name` (*replace `app_name` with your app name*)
+- Set the remote for Heroku: `heroku git:remote -a app_name` (_replace `app_name` with your app name_)
 - After performing the standard Git `add`, `commit`, and `push` to GitHub, you can now type:
-	- `git push heroku main`
+  - `git push heroku main`
 
 Or:
 
@@ -266,15 +301,15 @@ Deploy manually:
 To deploy your app manually via the Heroku Dashboard:
 
 - Go to your app on the Heroku website.
-![loopinapp](assets/images/loopinapp.png)
+  ![loopinapp](assets/images/loopinapp.png)
 
 - In the top menu, click on **“Deploy.”**
-![Deploy1](assets/images/deploy-branch.png)
+  ![Deploy1](assets/images/deploy-branch.png)
 - Scroll down to the Manual Deploy section and click on **Deploy Branch**
-![Deploy2](assets/images/heroku_settings_var.png)
+  ![Deploy2](assets/images/heroku_settings_var.png)
 
 - After a successful deployment, click the **“View”** button to open your live app.
-![Deploy3](assets/images/deployed.png)
+  ![Deploy3](assets/images/deployed.png)
 
 The project should now be connected and deployed to Heroku!
 
@@ -289,19 +324,20 @@ The project should now be connected and deployed to Heroku!
    ![generate_api](assets/images/cloudinary_generate_api.png)
 
 - You will now see:
-   - **Key Name**
-   - **API Key**
-   - **API Secret**
+
+  - **Key Name**
+  - **API Key**
+  - **API Secret**
 
 - These are your Cloudinary credentials used to connect your app.
 - Copy the `Key Name`, `API Key`, and `API Secret`.
 - Store them in your environment variables (e.g., in a `.env` or `env.py` file):
 
-   ```env
-   CLOUDINARY_URL=cloudinary://123456789012345:AbCdEfGhIjKlMnOpQrStuVwXyZa@your_cloud_name
-   ```
+  ```env
+  CLOUDINARY_URL=cloudinary://123456789012345:AbCdEfGhIjKlMnOpQrStuVwXyZa@your_cloud_name
+  ```
 
-   > ⚠️ Make sure you include the full URL (starting with `cloudinary://`) as the **value** for the key `CLOUDINARY_URL`.
+  > ⚠️ Make sure you include the full URL (starting with `cloudinary://`) as the **value** for the key `CLOUDINARY_URL`.
 
 - Add the same `CLOUDINARY_URL` as a Config Var in Heroku under **Settings > Config Vars**.
 
@@ -318,7 +354,7 @@ To obtain my own Postgres Database from Code Institute, I followed these steps:
 - Submitted my email address to the CI PostgreSQL Database link above.
 - An email was sent to me with my new Postgres Database.
 - The Database connection string will resemble something like this:
-    - `postgres://<db_username>:<db_password>@<db_host_url>/<db_name>`
+  - `postgres://<db_username>:<db_password>@<db_host_url>/<db_name>`
 - You can use the above URL with Django; simply paste it into your `env.py` file and Heroku Config Vars as `DATABASE_URL`.
 
 ## Clone and Fork
@@ -356,19 +392,18 @@ os.environ.setdefault("DEBUG", "False")
 Once the project is cloned or forked, in order to run it locally, you'll need to follow these steps:
 
 - Start the Django app: `python3 manage.py runserver`
-- Stop the app once it's loaded: `CTRL+C` (*Windows/Linux*) or `⌘+C` (*Mac*)
+- Stop the app once it's loaded: `CTRL+C` (_Windows/Linux_) or `⌘+C` (_Mac_)
 - Make any necessary migrations: `python3 manage.py makemigrations --dry-run` then `python3 manage.py makemigrations`
 - Migrate the data to the database: `python3 manage.py migrate --plan` then `python3 manage.py migrate`
 - Create a superuser: `python3 manage.py createsuperuser`
-- Load fixtures (*if applicable*): `python3 manage.py loaddata file-name.json` (*repeat for each file*)
+- Load fixtures (_if applicable_): `python3 manage.py loaddata file-name.json` (_repeat for each file_)
 - Everything should be ready now, so run the Django app again: `python3 manage.py runserver`
 
 If you'd like to backup your database models, use the following command for each model you'd like to create a fixture for:
 
 - `python3 manage.py dumpdata your-model > your-model.json`
-- *repeat this action for each model you wish to backup*
-- **NOTE**: You should never make a backup of the default *admin* or *users* data with confidential information.
-
+- _repeat this action for each model you wish to backup_
+- **NOTE**: You should never make a backup of the default _admin_ or _users_ data with confidential information.
 
 #### **Clone the Repository using VS Code**
 
@@ -377,15 +412,15 @@ The repository has a single branch with a clear commit history. To clone the rep
 ##### For **Mac** Users:
 
 1. Open the **Terminal**.
-2. Navigate to your preferred directory:  
+2. Navigate to your preferred directory:
    ```bash
    cd /path/to/your/directory
    ```
-3. Clone the repository:  
+3. Clone the repository:
    ```bash
    git clone https://github.com/RazmikMovsisyan/drf-api
    ```
-4. Navigate into the directory:  
+4. Navigate into the directory:
    ```bash
    cd drf_api
    ```
@@ -393,15 +428,15 @@ The repository has a single branch with a clear commit history. To clone the rep
 ##### For **Windows** Users:
 
 1. Open **Command Prompt** or **PowerShell**.
-2. Navigate to the desired directory:  
+2. Navigate to the desired directory:
    ```cmd
    cd C:\path\to\your\directory
    ```
-3. Clone the repository:  
+3. Clone the repository:
    ```cmd
    git clone https://github.com/RazmikMovsisyan/drf-api
    ```
-4. Navigate into the directory:  
+4. Navigate into the directory:
    ```cmd
    cd drf_api
    ```
@@ -409,15 +444,19 @@ The repository has a single branch with a clear commit history. To clone the rep
 # Credits
 
 ### Used Technologies and Tools
+
 - [Django Rest Framework](https://www.django-rest-framework.org/) - Framework used for the project
 - [Heroku](https://www.heroku.com/) - Platform for deployment
 - [Cloudinary](https://cloudinary.com/) - Service for image storage
 
 ### Django Apps
+
 - [dj_rest_auth](https://pypi.org/project/dj-rest-auth/) - Used for handling user registration
 - [django-allauth](https://pypi.org/project/django-allauth/) - Used for handling user authentication
 - [django-cors-headers](https://pypi.org/project/django-cors-headers/) - Used to add CORS headers to responses
 - [rest-framework-simplejwt](https://pypi.org/project/rest-framework-simplejwt/) - Used for JWT-based authentication
 - [cloudinary_storage and cloudinary](https://pypi.org/project/django-cloudinary-storage/) - Used for storing images
+
 ---
+
 [⬆ Back to Top](#loopin)
