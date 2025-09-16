@@ -8,6 +8,5 @@ class NewsletterSubscriberAdmin(admin.ModelAdmin):
     list_filter = ("subscribed", "created_at")
     search_fields = ("email",)
 
-    # Nur abonnierte E-Mail-Adressen anzeigen
     def get_queryset(self, request):
         return super().get_queryset(request).filter(subscribed=True)
