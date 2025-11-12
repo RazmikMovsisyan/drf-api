@@ -18,22 +18,18 @@ The goal of this project is to showcase my expertise in React, Typescript, Djang
 
 - [Endpoints](#endpoints)
   - [Authentication](#authentication)
-    - [Registration](#registration)
-    - [API Tokens](#api-tokens)
-    - [API Token Refresh](#api-tokens-refresh)
+    - [User Login](#user-login)
+    - [User Logout](#user-logout)
   - [Profiles](#profiles)
     - [Profile List](#profile-list)
     - [Profile Detail](#profile-detail)
-    - [Profile Follow](#profile-follow)
-    - [User Profile](#user-profile)
   - [Posts](#posts)
     - [Post List](#post-list)
     - [Post Detail](#post-detail)
-    - [Post Like](#post-like)
-    - [Post Search](#post-search)
-    - [Profile Post List](#profile-post-list)
-    - [Follow Post List](#follow-post-list)
-    - [Liked Post List](#liked-post-list)
+  - [Likes](#likes)
+    - [Like List](#like-list)
+  - [Followers](#followers)
+    - [Follower List](#follower-list)
   - [Comments](#comments)
     - [Comment List](#comment-list)
     - [Comment Detail](#comment-detail)
@@ -43,7 +39,7 @@ The goal of this project is to showcase my expertise in React, Typescript, Djang
 - [Github](#github)
 - [Deployment](#deployment)
   - [Deployment](#deployment)
-  - [heroku](#heroku)
+  - [Heroku](#heroku)
 - [Credits](#credits)
   - [Used Technologies and Tools](#used-technologies-and-tools)
   - [Django Apps](#django-apps)
@@ -53,85 +49,73 @@ The goal of this project is to showcase my expertise in React, Typescript, Djang
 
 ## Authentication
 
-#### Registration
+#### User Login
 
-- **POST:** Creates a new user
+- **GET:** `/api-auth/login/` - Returns Django login form
+- **POST:** `/api-auth/login/` - Authenticates user and creates session
 
-#### API Tokens
+#### User Logout
 
-- **POST:** Returns a set of JWT tokens
+- **GET:** `/api-auth/logout/` - Returns Django logout form
+- **POST:** `/api-auth/logout/` - Logs out user and ends session
 
-#### API Token Refresh
-
-- **POST:** Allows authenticated users to refresh their access token by providing a refresh token
+_Note: Uses Django REST Framework session authentication. After login, users are redirected to `/accounts/profile/` (404) - this is normal Django behavior._
 
 ## Profiles
 
 #### Profile List
 
-- **GET:** Returns a list of all profiles
+- **GET:** `/profiles/` - Returns paginated list of all profiles
 
 #### Profile Detail
 
-- **GET:** Returns the profile specified by ID
+- **GET:** `/profiles/{id}/` - Returns specific profile details
 
-#### Profile Follow
-
-- **GET:** Lists profiles following the specified profile
-- **POST:** Allows authenticated users to follow the specified profile
-
-#### User Profile
-
-- **GET:** Returns the profile of the authenticated user
-- **PUT:** Allows users to update their profile
+_Note: No dedicated follow/unfollow endpoints - follow functionality is handled through followers endpoint_
 
 ## Posts
 
 #### Post List
 
-- **GET:** Returns a list of all posts
-  - Authenticated: Filters out posts from the requesting user and the profiles they follow
-- **POST:** Allows authenticated users to create posts
+- **GET:** `/posts/` - Returns paginated list of all posts
+- **POST:** `/posts/` - Allows authenticated users to create posts
 
 #### Post Detail
 
-- **GET:** Returns the post specified by ID
-- **PUT:** Allows the post owner to update the post
-- **DELETE:** Allows the post owner to delete the post
+- **GET:** `/posts/{id}/` - Returns specific post details
+- **PUT:** `/posts/{id}/` - Allows post owner to update post
+- **DELETE:** `/posts/{id}/` - Allows post owner to delete post
 
-#### Post Like
+_Note: Like status is included in post responses via `like_id` and `likes_count` fields_
 
-- **GET:** Returns a list of profiles who liked the specified post
-- **POST:** Allows authenticated users to like the specified post
+## Likes
 
-#### Post Search
+#### Like List
 
-- **GET:** Returns posts containing the specified keywords in their title, description, or author's profile name
+- **GET:** `/likes/` - Returns paginated list of all likes
+- **POST:** `/likes/` - Allows authenticated users to create likes
+- **DELETE:** `/likes/{id}/` - Allows like owner to delete like
 
-#### Profile Post List
+## Followers
 
-- **GET:** Returns all posts from the specified profile
+#### Follower List
 
-#### Follow Post List
-
-- **GET:** Allows authenticated users to retrieve a list of posts from profiles they follow
-
-#### Liked Post List
-
-- **GET:** Allows authenticated users to retrieve a list of posts they liked
+- **GET:** `/followers/` - Returns paginated list of all follow relationships
+- **POST:** `/followers/` - Allows authenticated users to create follow relationships
+- **DELETE:** `/followers/{id}/` - Allows follow owner to delete follow relationship
 
 ## Comments
 
 #### Comment List
 
-- **GET:** Returns all comments from a specified post
-- **POST:** Allows authenticated users to create comments on the specified post
+- **GET:** `/comments/` - Returns paginated list of all comments
+- **POST:** `/comments/` - Allows authenticated users to create comments
 
 #### Comment Detail
 
-- **GET:** Returns the comment specified by ID
-- **PUT:** Allows the comment owner to update the comment
-- **DELETE:** Allows the comment owner to delete the comment
+- **GET:** `/comments/{id}/` - Returns specific comment details
+- **PUT:** `/comments/{id}/` - Allows comment owner to update comment
+- **DELETE:** `/comments/{id}/` - Allows comment owner to delete comment
 
 ### **ER Diagram Django API**
 
@@ -159,60 +143,75 @@ Comprehensive manual testing was performed on all API endpoints to ensure proper
 
 ### Authentication Endpoints
 
-| Feature           | Method | Endpoint                   | Expected Result          | Test Result |
-| ----------------- | ------ | -------------------------- | ------------------------ | ----------- |
-| User Registration | POST   | `/api/auth/registration/`  | Creates new user account | ✅          |
-| Token Generation  | POST   | `/api/auth/token/`         | Returns JWT tokens       | ✅          |
-| Token Refresh     | POST   | `/api/auth/token/refresh/` | Refreshes access token   | ✅          |
+| Feature     | Method | Endpoint            | Description                   | Test Result |
+| ----------- | ------ | ------------------- | ----------------------------- | ----------- |
+| User Login  | GET    | `/api-auth/login/`  | Returns Django login form     | ✅          |
+| User Login  | POST   | `/api-auth/login/`  | Creates authenticated session | ✅          |
+| User Logout | GET    | `/api-auth/logout/` | Returns Django logout form    | ✅          |
+| User Logout | POST   | `/api-auth/logout/` | Ends user session             | ✅          |
 
 ### Profile Endpoints
 
-| Feature           | Method | Endpoint                     | Expected Result                      | Test Result |
-| ----------------- | ------ | ---------------------------- | ------------------------------------ | ----------- |
-| Profile List      | GET    | `/api/profiles/`             | Returns all profiles                 | ✅          |
-| Profile Detail    | GET    | `/api/profiles/{id}/`        | Returns specific profile             | ✅          |
-| Profile Followers | GET    | `/api/profiles/{id}/follow/` | Returns profile followers            | ✅          |
-| Follow Profile    | POST   | `/api/profiles/{id}/follow/` | Allows following profiles            | ✅          |
-| User Profile      | GET    | `/api/profiles/me/`          | Returns authenticated user's profile | ✅          |
-| Update Profile    | PUT    | `/api/profiles/me/`          | Allows profile updates               | ✅          |
+| Feature        | Method | Endpoint          | Description                            | Test Result |
+| -------------- | ------ | ----------------- | -------------------------------------- | ----------- |
+| Profile List   | GET    | `/profiles/`      | Returns paginated list of all profiles | ✅          |
+| Profile Detail | GET    | `/profiles/{id}/` | Returns specific profile details       | ✅          |
 
 ### Post Endpoints
 
-| Feature        | Method | Endpoint                    | Expected Result                             | Test Result |
-| -------------- | ------ | --------------------------- | ------------------------------------------- | ----------- |
-| Post List      | GET    | `/api/posts/`               | Returns all posts (filtered for auth users) | ✅          |
-| Create Post    | POST   | `/api/posts/`               | Allows post creation                        | ✅          |
-| Post Detail    | GET    | `/api/posts/{id}/`          | Returns specific post                       | ✅          |
-| Update Post    | PUT    | `/api/posts/{id}/`          | Allows post updates (owner only)            | ✅          |
-| Delete Post    | DELETE | `/api/posts/{id}/`          | Allows post deletion (owner only)           | ✅          |
-| Post Likes     | GET    | `/api/posts/{id}/like/`     | Returns post likes                          | ✅          |
-| Like Post      | POST   | `/api/posts/{id}/like/`     | Allows liking posts                         | ✅          |
-| Post Search    | GET    | `/api/posts/search/`        | Returns posts by keywords                   | ✅          |
-| Profile Posts  | GET    | `/api/profiles/{id}/posts/` | Returns profile's posts                     | ✅          |
-| Followed Posts | GET    | `/api/posts/following/`     | Returns posts from followed profiles        | ✅          |
-| Liked Posts    | GET    | `/api/posts/liked/`         | Returns user's liked posts                  | ✅          |
+| Feature     | Method | Endpoint       | Description                         | Test Result |
+| ----------- | ------ | -------------- | ----------------------------------- | ----------- |
+| Post List   | GET    | `/posts/`      | Returns paginated list of all posts | ✅          |
+| Post Detail | GET    | `/posts/{id}/` | Returns specific post details       | ✅          |
+| Create Post | POST   | `/posts/`      | Creates a new post (authenticated)  | ✅          |
+| Update Post | PUT    | `/posts/{id}/` | Updates a post (owner only)         | ✅          |
+| Delete Post | DELETE | `/posts/{id}/` | Deletes a post (owner only)         | ✅          |
+
+### Like Endpoints
+
+| Feature     | Method | Endpoint       | Description                         | Test Result |
+| ----------- | ------ | -------------- | ----------------------------------- | ----------- |
+| Like List   | GET    | `/likes/`      | Returns paginated list of all likes | ✅          |
+| Like Detail | GET    | `/likes/{id}/` | Returns specific like details       | ✅          |
+| Create Like | POST   | `/likes/`      | Creates a new like (authenticated)  | ✅          |
+| Delete Like | DELETE | `/likes/{id}/` | Deletes a like (owner only)         | ✅          |
 
 ### Comment Endpoints
 
-| Feature        | Method | Endpoint                    | Expected Result                      | Test Result |
-| -------------- | ------ | --------------------------- | ------------------------------------ | ----------- |
-| Comment List   | GET    | `/api/posts/{id}/comments/` | Returns post comments                | ✅          |
-| Create Comment | POST   | `/api/posts/{id}/comments/` | Allows comment creation              | ✅          |
-| Comment Detail | GET    | `/api/comments/{id}/`       | Returns specific comment             | ✅          |
-| Update Comment | PUT    | `/api/comments/{id}/`       | Allows comment updates (owner only)  | ✅          |
-| Delete Comment | DELETE | `/api/comments/{id}/`       | Allows comment deletion (owner only) | ✅          |
+| Feature        | Method | Endpoint          | Description                            | Test Result |
+| -------------- | ------ | ----------------- | -------------------------------------- | ----------- |
+| Comment List   | GET    | `/comments/`      | Returns paginated list of all comments | ✅          |
+| Comment Detail | GET    | `/comments/{id}/` | Returns specific comment details       | ✅          |
+| Create Comment | POST   | `/comments/`      | Creates a new comment (authenticated)  | ✅          |
+| Update Comment | PUT    | `/comments/{id}/` | Updates a comment (owner only)         | ✅          |
+| Delete Comment | DELETE | `/comments/{id}/` | Deletes a comment (owner only)         | ✅          |
+
+### Follower Endpoints
+
+| Feature         | Method | Endpoint           | Description                                        | Test Result |
+| --------------- | ------ | ------------------ | -------------------------------------------------- | ----------- |
+| Follower List   | GET    | `/followers/`      | Returns paginated list of all follow relationships | ✅          |
+| Follower Detail | GET    | `/followers/{id}/` | Returns specific follow relationship               | ✅          |
+| Create Follow   | POST   | `/followers/`      | Creates a new follow relationship (authenticated)  | ✅          |
+| Delete Follow   | DELETE | `/followers/{id}/` | Deletes a follow relationship (owner only)         | ✅          |
+
+### Key Features in Responses:
+
+- **Posts include**: `like_id` (null if not liked, ID if liked) and `likes_count`
+- **Profiles include**: `is_owner`, `following_id`, posts_count, followers_count, following_count
+- **Likes include**: post ID and owner information
 
 ## Testing Methodology
 
 Each endpoint was tested for:
 
-- Proper HTTP status codes
+- Proper HTTP status codes and pagination
 - Authentication and authorization requirements
-- Request/response validation
-- Error handling
-- Data consistency across operations
+- CRUD operations (Create, Read, Update, Delete)
+- Data consistency across related endpoints
+- Error handling for invalid requests
 
-All tests were performed with both authenticated and unauthenticated requests where applicable to verify proper access control.
+All tests confirmed the API follows RESTful conventions with consistent paginated responses.
 
 ## Bugs
 
